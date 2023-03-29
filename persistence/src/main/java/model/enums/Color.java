@@ -1,6 +1,6 @@
 package model.enums;
 
-public enum CarBodyColor {
+public enum Color {
 
     BLACK,
     SILVER,

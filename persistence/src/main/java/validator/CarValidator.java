@@ -1,4 +1,6 @@
 package validator;
 
-public interface CarValidator {
+import model.car.Car;
+
+public interface CarValidator extends Validator<Car> {
 }

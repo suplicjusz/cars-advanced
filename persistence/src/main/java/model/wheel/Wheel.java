@@ -1,17 +1,17 @@
 package model.wheel;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import model.enums.TyreType;
 
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
 @ToString
+@Builder
 public class Wheel {
 
-    String model;
-    int size;
-    TyreType type;
+    private String model;
+    private int size;
+    private TyreType type;
 
 }

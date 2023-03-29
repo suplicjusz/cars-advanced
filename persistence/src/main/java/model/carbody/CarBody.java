@@ -1,20 +1,20 @@
 package model.carbody;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import model.enums.CarBodyColor;
+import lombok.*;
+import model.enums.Color;
 import model.enums.CarBodyType;
 
 import java.util.List;
 
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
 @ToString
+@Builder
 public class CarBody {
 
-    CarBodyColor color;
-    CarBodyType type;
-    List<String> components;
+    private Color color;
+    private CarBodyType type;
+    private List<String> components;
 
 }

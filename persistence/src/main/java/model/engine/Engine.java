@@ -1,16 +1,16 @@
 package model.engine;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import model.enums.EngineType;
 
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
 @ToString
+@Builder
 public class Engine {
 
-    EngineType type;
-    double power;
+    private EngineType type;
+    private int power;
 
 }

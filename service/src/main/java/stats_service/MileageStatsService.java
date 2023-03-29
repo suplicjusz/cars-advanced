@@ -1,31 +1,30 @@
-package model.stats;
+package stats_service;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import model.car.Car;
-import model.car.CarConverter;
-import model.engine.EngineConverter;
-
+import model.car.CarMapper;
 
 import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-
-public class PowerStats implements Stats<Double>, StatsAvailable {
+public class MileageStatsService implements StatsService<Double>, StatsAvailable {
 
     private final DoubleSummaryStatistics dss;
 
-    public static PowerStats of(Collection<Car> cars) {
-        return new PowerStats(
+    private MileageStatsService(DoubleSummaryStatistics dss) {
+        this.dss = dss;
+    }
+
+    public static MileageStatsService of(Collection<Car> cars) {
+        return new MileageStatsService(
                 cars
                         .stream()
-                        .map(CarConverter.carToEngine)
-                        .collect(Collectors.summarizingDouble(EngineConverter.engineToPower))
+                        .collect(Collectors.summarizingDouble(CarMapper.carToDoubleMileage))
         );
     }
 

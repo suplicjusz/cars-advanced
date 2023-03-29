@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
+@Data
 @ToString
-@Builder
-public class Car {
 
+public class CarData {
     long id;
     String carModel;
     BigDecimal carPrice;
@@ -22,8 +22,8 @@ public class Car {
     CarBody carBody;
     Wheel carWheel;
 
-    public int countComponents() {
-        return carBody.getComponents().size();
+    public Car toCar() {
+        return new Car(id, carModel, carPrice, carMileage, carEngine, carBody, carWheel);
     }
 
 
