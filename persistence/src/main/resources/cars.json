@@ -1,0 +1,49 @@
+[
+  {
+    "id": 0,
+    "carModel": "BMW",
+    "carPrice": 15000,
+    "carMileage": 200000,
+    "carEngine": {
+      "type": "DIESEL",
+      "power": 200
+    },
+    "carBody": {
+      "color": "BLACK",
+      "type": "SEDAN",
+      "components": [
+        "AIR CONDITIONING",
+        "BLUETOOTH"
+      ]
+    },
+    "carWheel": {
+      "model": "BMW",
+      "size": 17,
+      "type": "SUMMER"
+    }
+  },
+  {
+    "id": 1,
+    "carModel": "AUDI",
+    "carPrice": 18000,
+    "carMileage": 250000,
+    "carEngine": {
+      "type": "DIESEL",
+      "power": 180
+    },
+    "carBody": {
+      "color": "WHITE",
+      "type": "SEDAN",
+      "components": [
+        "AIR CONDITIONING",
+        "ABS"
+      ]
+    },
+    "carWheel": {
+      "model": "PERFECT_WHEEL",
+      "size": 16,
+      "type": "SUMMER"
+    }
+  }
+]
+

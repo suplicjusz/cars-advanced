@@ -19,7 +19,7 @@ import java.util.List;
 @ToString
 public class CarsJsonLoaderImpl implements JsonLoader<List<CarData>> {
 
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson gson;
     @Override
     public List<CarData> load(String jsonFilename) {
         try(FileReader fileReader = new FileReader(jsonFilename)) {

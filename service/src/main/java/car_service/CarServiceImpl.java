@@ -2,6 +2,7 @@ package car_service;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import model.car.Car;
 import model.enums.*;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Getter
 @Builder
 public class CarServiceImpl implements CarService {
 

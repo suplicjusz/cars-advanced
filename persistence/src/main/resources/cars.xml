@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cars>
+    <car>
+        <id>0</id>
+        <carModel>BMW</carModel>
+        <carPrice>15000</carPrice>
+        <carMileage>200000</carMileage>
+        <carEngine>
+            <type>DIESEL</type>
+            <power>200</power>
+        </carEngine>
+        <carBody>
+            <color>BLACK</color>
+            <type>SEDAN</type>
+            <components>
+                <li>AIR CONDITIONING</li>
+                <li>BLUETOOTH</li>
+            </components>
+        </carBody>
+        <carWheel>
+            <model>BMW</model>
+            <size>17</size>
+            <type>SUMMER</type>
+        </carWheel>
+    </car>
+    <car>
+        <id>1</id>
+        <carModel>AUDI</carModel>
+        <carPrice>18000</carPrice>
+        <carMileage>250000</carMileage>
+        <carEngine>
+            <type>DIESEL</type>
+            <power>180</power>
+        </carEngine>
+        <carBody>
+            <color>WHITE</color>
+            <type>SEDAN</type>
+            <components>
+                <li>AIR CONDITIONING</li>
+                <li>ABS</li>
+            </components>
+        </carBody>
+        <carWheel>
+            <model>PERFECT_WHEEL</model>
+            <size>16</size>
+            <type>SUMMER</type>
+        </carWheel>
+    </car>
+</cars>

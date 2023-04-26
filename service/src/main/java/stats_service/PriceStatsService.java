@@ -1,8 +1,11 @@
 package stats_service;
 
+import collector.BigDecimalSummaryStatistic;
+import collector.model.BigDecimalStatistics;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import model.car.Car;
+import model.car.CarMapper;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -11,27 +14,33 @@ import java.util.Collection;
 @ToString
 public class PriceStatsService implements StatsService<BigDecimal>, StatsAvailable {
 
-    private final Collection<Car> cars;
+    private final BigDecimalStatistics bigDecimalStatistics;
 
-    private PriceStatsService(Collection<Car> cars) {
-        this.cars = cars;
+    private PriceStatsService(BigDecimalStatistics bigDecimalStatistics) {
+        this.bigDecimalStatistics = bigDecimalStatistics;
     }
 
     public static PriceStatsService of(Collection<Car> cars) {
-        return new PriceStatsService(cars);
+        return new PriceStatsService(
+                cars
+                        .stream()
+                        .map(CarMapper.carToPrice)
+                        .collect(new BigDecimalSummaryStatistic())
+        );
     }
+
     @Override
     public BigDecimal getMin() {
-        return null;
-    } //todo impl
+        return bigDecimalStatistics.min();
+    }
 
     @Override
     public BigDecimal getMax() {
-        return null;
+        return bigDecimalStatistics.max();
     }
 
     @Override
     public BigDecimal getAvg() {
-        return null;
+        return bigDecimalStatistics.avg();
     }
 }

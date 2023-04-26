@@ -7,6 +7,7 @@ import stats_service.StatsAvailable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public interface CarService {
@@ -18,4 +19,5 @@ public interface CarService {
     Map<Car, Integer> getMileagesSortedByCars();
     Map<TyreType, List<Car>> getListsOfCarsGroupedByTyreType();
     List<Car> getCarsContainsAllComponentsFromGivenList(List<String> components);
+    Set<Car> getCars();
 }

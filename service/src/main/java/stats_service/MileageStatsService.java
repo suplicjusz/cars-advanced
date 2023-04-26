@@ -1,7 +1,6 @@
 package stats_service;
 
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import model.car.Car;
 import model.car.CarMapper;

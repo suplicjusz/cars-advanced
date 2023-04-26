@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @ToString
-
 public class PowerStatsService implements StatsService<Double>, StatsAvailable {
 
     private final DoubleSummaryStatistics dss;
