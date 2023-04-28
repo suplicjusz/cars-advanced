@@ -1,31 +1,24 @@
 package loader.json.impl;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import loader.exception.JsonLoaderException;
 import loader.json.JsonLoader;
-import lombok.AllArgsConstructor;
+import loader.parser.JsonAbstractParser;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import model.car.CarData;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class CarsJsonLoaderImpl implements JsonLoader<List<CarData>> {
 
-    private final Gson gson;
+@EqualsAndHashCode(callSuper = false)
+@ToString
+public class CarsJsonLoaderImpl extends JsonAbstractParser<List<CarData>> implements JsonLoader<List<CarData>> {
+
+    protected CarsJsonLoaderImpl(Gson gson) {
+        super(gson);
+    }
+
     @Override
-    public List<CarData> load(String jsonFilename) {
-        try(FileReader fileReader = new FileReader(jsonFilename)) {
-            return gson.fromJson(fileReader, new TypeToken<List<CarData>>(){}.getType());
-        } catch (IOException e) {
-            throw new JsonLoaderException("Incorrect filename!");
-        }
+    public List<CarData> load(String path) {
+        return parseJson(path);
     }
 }

@@ -10,8 +10,8 @@ import model.enums.TyreType;
 @Builder
 public class Wheel {
 
-    private String model;
-    private int size;
-    private TyreType type;
+    private String wheelModel;
+    private int wheelSize;
+    private TyreType tyreType;
 
 }

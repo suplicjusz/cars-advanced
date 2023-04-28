@@ -12,7 +12,7 @@ import java.util.Set;
 
 public interface CarService {
 
-    List<Car> getCarsSortedByCriterion(SortCriterion sortCriterion);
+    List<Car> getCarsSortedByCriterion(SortCriterion sortCriterion, boolean isAscending);
     List<Car> getCarsFilteredByCarBodyTypeFromPriceCompartment(CarBodyType carBodyType, BigDecimal min, BigDecimal max);
     List<Car> getCarsSortedByModelFilteredByEngineType(EngineType engineType);
     StatsAvailable getStatsForGivenType(StatsType type);

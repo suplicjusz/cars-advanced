@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @Data
 @ToString
+@Builder
 
 public class CarData {
     long id;

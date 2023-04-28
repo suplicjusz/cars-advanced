@@ -27,7 +27,7 @@ public class GetCarsSortedByCriterionTest implements CarServiceContent<EnumMap<S
         Assertions
                 .assertEquals(
                         getExpected().get(sortCriterion),
-                        extensionCarService.getCarsSortedByCriterion(sortCriterion)
+                        extensionCarService.getCarsSortedByCriterion(sortCriterion, true)
                 );
     }
 

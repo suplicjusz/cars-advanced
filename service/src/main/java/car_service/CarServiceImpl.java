@@ -12,9 +12,11 @@ import stats_service.PriceStatsService;
 import stats_service.StatsAvailable;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static model.car.CarComparator.*;
+import static model.car.CarMapper.*;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -36,9 +38,28 @@ public class CarServiceImpl implements CarService {
      * @return List of cars sorted by given criterion
      */
     @Override
-    public List<Car> getCarsSortedByCriterion(SortCriterion sortCriterion) {
+    public List<Car> getCarsSortedByCriterion(SortCriterion sortCriterion, boolean isAscending) {
+        if (sortCriterion == null) {
+            throw new NullPointerException("SortCriterion is null");
+        }
 
-        return null;
+        Comparator<Car> carComparator;
+
+        switch (sortCriterion) {
+            case COMPONENTS_QUANTITY -> carComparator = byComponentsQuantityComparator;
+            case ENGINE_POWER -> carComparator = byEnginePowerComparator;
+            case WHEEL_SIZE -> carComparator = byWheelSizeComparator;
+            default -> throw new IllegalArgumentException("SortCriterion is not available");
+        }
+
+        if (!isAscending) {
+            carComparator = carComparator.reversed();
+        }
+
+        return cars
+                .stream()
+                .sorted(carComparator)
+                .toList();
     }
 
     /*Metoda zwraca kolekcję samochodów o określonym rodzaju nadwozia
@@ -53,7 +74,15 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public List<Car> getCarsFilteredByCarBodyTypeFromPriceCompartment(CarBodyType carBodyType, BigDecimal min, BigDecimal max) {
-        return null;
+
+        return cars
+                .stream()
+                .filter(car -> carToCarBody.apply(car).getCarBodytype().equals(carBodyType))
+                .filter(car ->
+                        carToPrice.apply(car).compareTo(min) >= 0
+                                && carToPrice.apply(car).compareTo(max) <= 0)
+                .sorted(Comparator.comparing(carToPrice))
+                .toList();
     }
 
     /*Metoda zwraca posortowaną alfabetycznie kolekcję modeli
@@ -66,7 +95,12 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public List<Car> getCarsSortedByModelFilteredByEngineType(EngineType engineType) {
-        return null;
+        return cars
+                .stream()
+                .filter(car -> carToEngine.apply(car).getEngineType().equals(engineType))
+                .sorted(byCarModelInAlphabeticalOrder.thenComparing(byIdComparator))
+                .toList();
+
     }
 
     /*Metoda zwraca dane statystyczne dla podanej jako argument
@@ -96,12 +130,26 @@ public class CarServiceImpl implements CarService {
     wartości.*/
 
     /**
-     * @return mileage values sorted by cars
+     * @return mileage values sorted by cars in reverse order
      */
 
     @Override
     public Map<Car, Integer> getMileagesSortedByCars() {
-        return null;
+        var temp = new HashMap<Car, Integer>();
+        cars.forEach(
+                car -> temp.put(car, carToIntMileage.applyAsInt(car))
+        );
+
+        return temp
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (c1, c2) -> c2,
+                        LinkedHashMap::new
+                ));
     }
 
     /*Metoda zwraca mapę, w której kluczem jest rodzaj opony
@@ -113,7 +161,21 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public Map<TyreType, List<Car>> getListsOfCarsGroupedByTyreType() {
-        return null;
+        return cars
+                .stream()
+                .collect(Collectors.groupingBy(
+                        car -> carToWheel.apply(car).getTyreType()
+                ))
+                .entrySet()
+                .stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e2,
+                        LinkedHashMap::new
+                ));
+
     }
 
     /*Metoda zwraca kolekcję samochodów, które posiadają wszystkie
@@ -121,13 +183,28 @@ public class CarServiceImpl implements CarService {
     posortowana jest alfabetycznie według nazwy modelu samochodu.*/
 
     /**
-     * @param components is a list of required components should have a cars
+     * @param components is a list of required components should cars to have
      * @return list of cars contains a given components list
      */
     @Override
     public List<Car> getCarsContainsAllComponentsFromGivenList(List<String> components) {
-        return null;
+        if (components == null) {
+            throw new NullPointerException("List of required components is null!");
+        }
+        var temp = new ArrayList<Car>();
+        cars.forEach(
+                car -> {
+                    if (new HashSet<>(carToListOfComponents.apply(car)).containsAll(components)) {
+                        temp.add(car);
+                    }
+                }
+        );
+        return temp
+                .stream()
+                .sorted(Comparator.comparing(carToCarModel))
+                .toList();
     }
 
 
 }
+

@@ -10,7 +10,7 @@ import model.enums.EngineType;
 @Builder
 public class Engine {
 
-    private EngineType type;
-    private int power;
+    private EngineType engineType;
+    private int enginePower;
 
 }

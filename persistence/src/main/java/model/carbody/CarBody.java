@@ -14,7 +14,7 @@ import java.util.List;
 public class CarBody {
 
     private Color color;
-    private CarBodyType type;
+    private CarBodyType carBodytype;
     private List<String> components;
 
 }

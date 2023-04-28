@@ -5,14 +5,15 @@ import collector.model.BigDecimalStatistics;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import model.car.Car;
-import model.car.CarMapper;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import static model.car.CarMapper.carToPrice;
+
 @EqualsAndHashCode
 @ToString
-public class PriceStatsService implements StatsService<BigDecimal>, StatsAvailable {
+public class PriceStatsService implements StatsService<BigDecimal, BigDecimal> {
 
     private final BigDecimalStatistics bigDecimalStatistics;
 
@@ -21,10 +22,13 @@ public class PriceStatsService implements StatsService<BigDecimal>, StatsAvailab
     }
 
     public static PriceStatsService of(Collection<Car> cars) {
+        if (cars == null || cars.isEmpty()) {
+            throw new IllegalArgumentException("Collection of cars is null or empty!");
+        }
         return new PriceStatsService(
                 cars
                         .stream()
-                        .map(CarMapper.carToPrice)
+                        .map(carToPrice)
                         .collect(new BigDecimalSummaryStatistic())
         );
     }
