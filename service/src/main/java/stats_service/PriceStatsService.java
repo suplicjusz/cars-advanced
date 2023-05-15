@@ -9,7 +9,7 @@ import model.car.Car;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import static model.car.CarMapper.carToPrice;
+import static model.car.CarMappers.carToPrice;
 
 @EqualsAndHashCode
 @ToString

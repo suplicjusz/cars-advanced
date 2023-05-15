@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.IntSummaryStatistics;
 import java.util.stream.Collectors;
 
-import static model.car.CarMapper.*;
+import static model.car.CarMappers.*;
 
 @EqualsAndHashCode
 @ToString

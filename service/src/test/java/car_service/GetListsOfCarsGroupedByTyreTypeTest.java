@@ -12,13 +12,13 @@ import support.CarServiceContent;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @RequiredArgsConstructor
 @ExtendWith(CarServiceParameterResolver.class)
-public class GetCarListsSortedByTyreTypeTest implements CarServiceContent<Map<TyreType, List<Car>>> {
+public class GetListsOfCarsGroupedByTyreTypeTest implements CarServiceContent<Map<TyreType, List<Car>>> {
 
     private final CarService extensionCarService;
-
     @Test
     @DisplayName("when is returned map: key is TyreType, values are lists of Cars contains that")
     void shouldSortedCarsByTyreType() {
@@ -28,17 +28,19 @@ public class GetCarListsSortedByTyreTypeTest implements CarServiceContent<Map<Ty
 
     }
 
-
     @Override
     public Map<TyreType, List<Car>> getExpected() {
-        return Map.of(
+        return new TreeMap<>(Map.of(
                 TyreType.SUMMER,
                 List.of(
                         findContentCarById(0L),
-                        findContentCarById(1L),
+                        findContentCarById(1L)
+                ),
+                TyreType.WINTER,
+                List.of(
                         findContentCarById(2L),
                         findContentCarById(3L)
                 )
-        );
+        ));
     }
 }

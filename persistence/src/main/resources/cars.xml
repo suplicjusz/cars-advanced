@@ -6,21 +6,21 @@
         <carPrice>15000</carPrice>
         <carMileage>200000</carMileage>
         <carEngine>
-            <type>DIESEL</type>
-            <power>200</power>
+            <engineType>DIESEL</engineType>
+            <enginePower>200</enginePower>
         </carEngine>
         <carBody>
             <color>BLACK</color>
-            <type>SEDAN</type>
+            <carBodyType>SEDAN</carBodyType>
             <components>
                 <li>AIR CONDITIONING</li>
                 <li>BLUETOOTH</li>
             </components>
         </carBody>
         <carWheel>
-            <model>BMW</model>
-            <size>17</size>
-            <type>SUMMER</type>
+            <wheelModel>BMW</wheelModel>
+            <whellSize>17</whellSize>
+            <tyreType>SUMMER</tyreType>
         </carWheel>
     </car>
     <car>
@@ -29,21 +29,21 @@
         <carPrice>18000</carPrice>
         <carMileage>250000</carMileage>
         <carEngine>
-            <type>DIESEL</type>
-            <power>180</power>
+            <engineType>DIESEL</engineType>
+            <enginePower>180</enginePower>
         </carEngine>
         <carBody>
             <color>WHITE</color>
-            <type>SEDAN</type>
+            <carBodyType>SEDAN</carBodyType>
             <components>
                 <li>AIR CONDITIONING</li>
                 <li>ABS</li>
             </components>
         </carBody>
         <carWheel>
-            <model>PERFECT_WHEEL</model>
-            <size>16</size>
-            <type>SUMMER</type>
+            <wheelModel>PERFECT_WHEEL</wheelModel>
+            <wheelSize>16</wheelSize>
+            <tyreType>SUMMER</tyreType>
         </carWheel>
     </car>
 </cars>

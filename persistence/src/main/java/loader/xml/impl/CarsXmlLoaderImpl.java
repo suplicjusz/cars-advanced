@@ -1,6 +1,8 @@
 package loader.xml.impl;
 
-import loader.json.JsonLoader;
+import loader.xml.XmlLoader;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import model.car.CarData;
 import model.carbody.CarBody;
 import model.engine.Engine;
@@ -21,14 +23,19 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class CarsXmlLoaderImpl implements JsonLoader<List<CarData>> {
+@NoArgsConstructor
+@EqualsAndHashCode
+public class CarsXmlLoaderImpl implements XmlLoader<Set<CarData>> {
+
     @Override
-    public List<CarData> load(String path) {
+    public Set<CarData> load(String path) {
 
         try {
-            var result = new ArrayList<CarData>();
+            var result = new HashSet<CarData>();
 
             var dbf = DocumentBuilderFactory.newInstance();
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -119,7 +126,7 @@ public class CarsXmlLoaderImpl implements JsonLoader<List<CarData>> {
                                             CarBody
                                                     .builder()
                                                     .color(Color.valueOf(color))
-                                                    .carBodytype(CarBodyType.valueOf(carBodyType))
+                                                    .carBodyType(CarBodyType.valueOf(carBodyType))
                                                     .components(components)
                                                     .build()
                                     )
@@ -140,4 +147,6 @@ public class CarsXmlLoaderImpl implements JsonLoader<List<CarData>> {
             throw new RuntimeException(e);
         }
     }
+
+
 }

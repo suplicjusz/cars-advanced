@@ -5,21 +5,21 @@
     "carPrice": 15000,
     "carMileage": 200000,
     "carEngine": {
-      "type": "DIESEL",
-      "power": 200
+      "engineType": "DIESEL",
+      "enginePower": 200
     },
     "carBody": {
       "color": "BLACK",
-      "type": "SEDAN",
+      "carBodyType": "SEDAN",
       "components": [
         "AIR CONDITIONING",
         "BLUETOOTH"
       ]
     },
     "carWheel": {
-      "model": "BMW",
-      "size": 17,
-      "type": "SUMMER"
+      "wheelModel": "BMW",
+      "wheelSize": 17,
+      "tyreType": "SUMMER"
     }
   },
   {
@@ -28,21 +28,21 @@
     "carPrice": 18000,
     "carMileage": 250000,
     "carEngine": {
-      "type": "DIESEL",
-      "power": 180
+      "carBodyType": "DIESEL",
+      "enginePower": 180
     },
     "carBody": {
       "color": "WHITE",
-      "type": "SEDAN",
+      "carBodyType": "SEDAN",
       "components": [
         "AIR CONDITIONING",
         "ABS"
       ]
     },
     "carWheel": {
-      "model": "PERFECT_WHEEL",
-      "size": 16,
-      "type": "SUMMER"
+      "wheelModel": "PERFECT_WHEEL",
+      "wheelSize": 16,
+      "tyreType": "SUMMER"
     }
   }
 ]

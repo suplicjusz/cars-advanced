@@ -1,7 +1,7 @@
 package support;
 
 import model.car.Car;
-import model.car.CarMapper;
+import model.car.CarMappers;
 import model.carbody.CarBody;
 import model.engine.Engine;
 import model.enums.CarBodyType;
@@ -21,7 +21,7 @@ public interface CarServiceContent<T> {
     default Car findContentCarById(Long id) {
         return carsTestingSet
                 .stream()
-                .filter(c -> CarMapper.carToId.apply(c).compareTo(id) == 0)
+                .filter(c -> CarMappers.carToId.apply(c).compareTo(id) == 0)
                 .findFirst()
                 .orElseThrow();
     }
@@ -34,22 +34,22 @@ public interface CarServiceContent<T> {
                     .carMileage(40000)
                     .carEngine(Engine
                             .builder()
-                            .type(EngineType.DIESEL)
-                            .power(150)
+                            .engineType(EngineType.DIESEL)
+                            .enginePower(150)
                             .build()
                     )
                     .carBody(CarBody
                             .builder()
                             .color(Color.BLACK)
-                            .type(CarBodyType.HATCHBACK)
+                            .carBodyType(CarBodyType.HATCHBACK)
                             .components(List.of("ABS"))
                             .build()
                     )
                     .carWheel(Wheel
                             .builder()
-                            .model("AUDI_ORIGINAL")
-                            .type(TyreType.SUMMER)
-                            .size(16)
+                            .wheelModel("AUDI_ORIGINAL")
+                            .wheelSize(16)
+                            .tyreType(TyreType.SUMMER)
                             .build()
                     )
                     .build(),
@@ -60,22 +60,22 @@ public interface CarServiceContent<T> {
                     .carMileage(50000)
                     .carEngine(Engine
                             .builder()
-                            .type(EngineType.DIESEL)
-                            .power(160)
+                            .engineType(EngineType.DIESEL)
+                            .enginePower(160)
                             .build()
                     )
                     .carBody(CarBody
                             .builder()
                             .color(Color.WHITE)
-                            .type(CarBodyType.COMBI)
+                            .carBodyType(CarBodyType.COMBI)
                             .components(List.of("ABS", "AIR_CONDITIONING"))
                             .build()
                     )
                     .carWheel(Wheel
                             .builder()
-                            .model("MBW_ORIGINAL")
-                            .type(TyreType.SUMMER)
-                            .size(17)
+                            .wheelModel("MBW_ORIGINAL")
+                            .wheelSize(17)
+                            .tyreType(TyreType.SUMMER)
                             .build()
                     )
                     .build(),
@@ -86,22 +86,22 @@ public interface CarServiceContent<T> {
                     .carMileage(100000)
                     .carEngine(Engine
                             .builder()
-                            .type(EngineType.DIESEL)
-                            .power(200)
+                            .engineType(EngineType.DIESEL)
+                            .enginePower(200)
                             .build()
                     )
                     .carBody(CarBody
                             .builder()
                             .color(Color.RED)
-                            .type(CarBodyType.HATCHBACK)
+                            .carBodyType(CarBodyType.HATCHBACK)
                             .components(List.of("ABS", "AIR_CONDITIONING"))
                             .build()
                     )
                     .carWheel(Wheel
                             .builder()
-                            .model("AUDI_ORIGINAL")
-                            .type(TyreType.SUMMER)
-                            .size(18)
+                            .wheelModel("AUDI_ORIGINAL")
+                            .wheelSize(18)
+                            .tyreType(TyreType.WINTER)
                             .build()
                     )
                     .build(),
@@ -112,22 +112,22 @@ public interface CarServiceContent<T> {
                     .carMileage(120000)
                     .carEngine(Engine
                             .builder()
-                            .type(EngineType.GASOLINE)
-                            .power(250)
+                            .engineType(EngineType.GASOLINE)
+                            .enginePower(250)
                             .build()
                     )
                     .carBody(CarBody
                             .builder()
                             .color(Color.BLUE)
-                            .type(CarBodyType.HATCHBACK)
+                            .carBodyType(CarBodyType.HATCHBACK)
                             .components(List.of("ABS"))
                             .build()
                     )
                     .carWheel(Wheel
                             .builder()
-                            .model("AUDI_ORIGINAL")
-                            .type(TyreType.SUMMER)
-                            .size(17)
+                            .wheelModel("AUDI_ORIGINAL")
+                            .wheelSize(17)
+                            .tyreType(TyreType.WINTER)
                             .build()
                     )
                     .build()

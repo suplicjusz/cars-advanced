@@ -1,4 +1,4 @@
-package loader.parser;
+package loader.json.parser;
 
 import com.google.gson.Gson;
 

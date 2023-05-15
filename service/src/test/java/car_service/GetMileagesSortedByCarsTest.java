@@ -31,7 +31,7 @@ public class GetMileagesSortedByCarsTest implements CarServiceContent<Map<Car, I
     public Map<Car, Integer> getExpected() {
         return Map.of(
                 findContentCarById(3L), 120000,
-                findContentCarById(2L), 10000,
+                findContentCarById(2L), 100000,
                 findContentCarById(1L), 50000,
                 findContentCarById(0L), 40000
         );

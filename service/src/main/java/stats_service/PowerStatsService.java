@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.IntSummaryStatistics;
 import java.util.stream.Collectors;
 
-import static model.car.CarMapper.carToEngine;
+import static model.car.CarMappers.carToEngine;
 @EqualsAndHashCode
 @ToString
 public class PowerStatsService implements StatsService<Integer, Double> {

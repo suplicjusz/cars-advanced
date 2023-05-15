@@ -15,8 +15,8 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static model.car.CarComparator.*;
-import static model.car.CarMapper.*;
+import static model.car.CarComparators.*;
+import static model.car.CarMappers.*;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -26,45 +26,22 @@ public class CarServiceImpl implements CarService {
 
     private final Set<Car> cars;
 
-
-    /*Metoda zwraca kolekcję samochodów posortowaną według kryterium
-    podanego jako argument. Metoda powinna umożliwiać sortowanie
-    według ilości komponentów, mocy silnika oraz rozmiaru opony.
-    Dodatkowo metoda powinna umożliwiać sortowanie rosnąco oraz
-    malejąco.*/
-
     /**
-     * @param sortCriterion is an enum you can choose as criterion
+     * @param comparator is a comparator you can choose as criterion of sorting
      * @return List of cars sorted by given criterion
      */
+
     @Override
-    public List<Car> getCarsSortedByCriterion(SortCriterion sortCriterion, boolean isAscending) {
-        if (sortCriterion == null) {
-            throw new NullPointerException("SortCriterion is null");
-        }
-
-        Comparator<Car> carComparator;
-
-        switch (sortCriterion) {
-            case COMPONENTS_QUANTITY -> carComparator = byComponentsQuantityComparator;
-            case ENGINE_POWER -> carComparator = byEnginePowerComparator;
-            case WHEEL_SIZE -> carComparator = byWheelSizeComparator;
-            default -> throw new IllegalArgumentException("SortCriterion is not available");
-        }
-
-        if (!isAscending) {
-            carComparator = carComparator.reversed();
+    public List<Car> getCarsSortedByCriterion(Comparator<Car> comparator) {
+        if (comparator == null) {
+            throw new NullPointerException("CarComparator is null");
         }
 
         return cars
                 .stream()
-                .sorted(carComparator)
+                .sorted(comparator)
                 .toList();
     }
-
-    /*Metoda zwraca kolekcję samochodów o określonym rodzaju nadwozia
-    przekazanym jako argument (CarBodyType) oraz o cenie z
-    przedziału <a, b>, gdzie a oraz b to kolejne argumenty metody.*/
 
     /**
      * @param carBodyType is an enum you can choose a car body type
@@ -72,22 +49,26 @@ public class CarServiceImpl implements CarService {
      * @param max         is a maximal price of car
      * @return List of cars represented given params
      */
+
     @Override
-    public List<Car> getCarsFilteredByCarBodyTypeFromPriceCompartment(CarBodyType carBodyType, BigDecimal min, BigDecimal max) {
+    public List<Car> getCarsFilteredByCarBodyTypeFromPriceCompartment(
+            CarBodyType carBodyType, BigDecimal min, BigDecimal max) {
+        if (carBodyType == null) {
+            throw new NullPointerException("CarBodyType is null");
+        }
+        if (min == null) {
+            throw new NullPointerException("Min value is null");
+        }
+        if (max == null) {
+            throw new NullPointerException("Max value is null");
+        }
 
         return cars
                 .stream()
-                .filter(car -> carToCarBody.apply(car).getCarBodytype().equals(carBodyType))
-                .filter(car ->
-                        carToPrice.apply(car).compareTo(min) >= 0
-                                && carToPrice.apply(car).compareTo(max) <= 0)
-                .sorted(Comparator.comparing(carToPrice))
+                .filter(car -> car.hasCarBodyType(carBodyType) && car.hasPriceBetween(min, max))
+                .sorted(Comparator.comparing(carToPrice).thenComparing(byIdComparator))
                 .toList();
     }
-
-    /*Metoda zwraca posortowaną alfabetycznie kolekcję modeli
-    samochodów, które posiadają typ silnika (EngineType) przekazany
-    jako argument metody.*/
 
     /**
      * @param engineType is an enum you choose an engine tpe
@@ -102,11 +83,6 @@ public class CarServiceImpl implements CarService {
                 .toList();
 
     }
-
-    /*Metoda zwraca dane statystyczne dla podanej jako argument
-    wielkości. Dopuszczalne wielkości to cena, przebieg oraz moc
-    silnika. Dane statystyczne powinny zawierać wartość
-    najmniejszą, wartość największą oraz wartość średnią.*/
 
     /**
      * StatsAvailable is a general type of classes that implement generic type StatsService
@@ -123,11 +99,6 @@ public class CarServiceImpl implements CarService {
             case MILEAGE -> MileageStatsService.of(cars);
         };
     }
-
-    /*Metoda zwraca mapę, w której kluczem jest obiekt klasy Car,
-    natomiast wartością jest liczba kilometrów, które samochód
-    przejechał. Pary w mapie posortowane są malejąco według
-    wartości.*/
 
     /**
      * @return mileage values sorted by cars in reverse order
@@ -152,20 +123,16 @@ public class CarServiceImpl implements CarService {
                 ));
     }
 
-    /*Metoda zwraca mapę, w której kluczem jest rodzaj opony
-    (Tyre Type), a wartością lista samochodów o takim typie opony.
-    Mapa posortowana jest malejąco po ilości elementów w kolekcji.*/
 
     /**
      * @return lists of cars sorted by tyre type
      */
+
     @Override
     public Map<TyreType, List<Car>> getListsOfCarsGroupedByTyreType() {
         return cars
                 .stream()
-                .collect(Collectors.groupingBy(
-                        car -> carToWheel.apply(car).getTyreType()
-                ))
+                .collect(Collectors.groupingBy(carToTyreType))
                 .entrySet()
                 .stream()
                 .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
@@ -177,10 +144,6 @@ public class CarServiceImpl implements CarService {
                 ));
 
     }
-
-    /*Metoda zwraca kolekcję samochodów, które posiadają wszystkie
-    komponenty z kolekcji przekazanej jako argument. Kolekcja
-    posortowana jest alfabetycznie według nazwy modelu samochodu.*/
 
     /**
      * @param components is a list of required components should cars to have
@@ -194,7 +157,7 @@ public class CarServiceImpl implements CarService {
         var temp = new ArrayList<Car>();
         cars.forEach(
                 car -> {
-                    if (new HashSet<>(carToListOfComponents.apply(car)).containsAll(components)) {
+                    if (car.hasAllComponents(components)) {
                         temp.add(car);
                     }
                 }
@@ -204,7 +167,6 @@ public class CarServiceImpl implements CarService {
                 .sorted(Comparator.comparing(carToCarModel))
                 .toList();
     }
-
 
 }
 

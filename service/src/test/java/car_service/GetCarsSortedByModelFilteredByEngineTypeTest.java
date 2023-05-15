@@ -21,7 +21,7 @@ public class GetCarsSortedByModelFilteredByEngineTypeTest implements CarServiceC
     private final CarService extensionCarService;
 
     @ParameterizedTest
-    @DisplayName("")
+    @DisplayName("when is called getCarsSortedByModelFilteredByEngineType")
     @EnumSource(value = EngineType.class)
     void shouldReturnListOfCarsWithChosenEngineTypeInAlphabeticalOrder(EngineType engineType) {
         Assertions

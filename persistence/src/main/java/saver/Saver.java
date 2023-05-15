@@ -1,5 +1,8 @@
 package saver;
 
-public interface Saver<T> {
-    void save(T t);
+import java.util.Optional;
+
+public interface Saver<T, U> {
+    Optional<U> save(T t);
+
 }
